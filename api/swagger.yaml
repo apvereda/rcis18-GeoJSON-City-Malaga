@@ -4,7 +4,7 @@ info:
   description: "A sample API that returns the bus stops in Malaga\
     \ in the swagger-2.0 specification"
   version: "1.0.0"
-  title: "GeoJSON city Malaga API (by APV)"
+  title: "GeoJSON city Malaga API (by APVEREDA)"
   termsOfService: "http://helloreverb.com/terms/"
   contact:
     name: "Universidad de Malaga"
