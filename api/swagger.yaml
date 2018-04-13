@@ -1,0 +1,139 @@
+---
+swagger: "2.0"
+info:
+  description: "A sample API that uses a petstore as an example to demonstrate features\
+    \ in the swagger-2.0 specification"
+  version: "1.0.0"
+  title: "GeoJSON city Malaga API (by APV)"
+  termsOfService: "http://helloreverb.com/terms/"
+  contact:
+    name: "Unversidad de Malaga"
+    url: "https://www.scenic.uma.es/"
+    email: "apvereda@uma.es"
+  license:
+    name: "MIT"
+    url: "http://opensource.org/licenses/MIT"
+host: "rcis-test-pafmon.c9users.io"
+schemes:
+- "https"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /moveit:
+    get:
+      description: "Returns all the bus stops from Malaga"
+      operationId: "busstops"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "bus stops"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/busStop"
+        default:
+          description: "unexpected error"
+          schema:
+            $ref: "#/definitions/errorModel"
+      x-swagger-router-controller: "Default"
+  /moveit/nearstops:
+    get:
+      description: "Returns the bus stops inside the area specified by the coordinates\
+        \ and the radius"
+      operationId: "nearstops"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "latitude"
+        in: "query"
+        description: "latitude of your position"
+        required: true
+        type: "string"
+      - name: "longitude"
+        in: "query"
+        description: "longitude of your position"
+        required: true
+        type: "string"
+      - name: "radius"
+        in: "query"
+        description: "radius inside you wish to search"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "busStop response"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/busStop"
+        default:
+          description: "unexpected error"
+          schema:
+            $ref: "#/definitions/errorModel"
+      x-swagger-router-controller: "Default"
+definitions:
+  busStop:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+      properties:
+        $ref: "#/definitions/busStop_properties"
+      geometry:
+        $ref: "#/definitions/busStop_geometry"
+    example:
+      type: "Feature"
+      properties:
+        entity: "Bus Stop"
+        line: 1
+        address: "Camino Suarez"
+        code: 652
+        direction: 1
+        sequence: 30
+      geometry:
+        type: "Point"
+        coordinates:
+        - 36.34543500000000193494997802190482616424560546875
+        - -4.24543499999999962568608680157922208309173583984375
+  errorModel:
+    type: "object"
+    required:
+    - "code"
+    - "message"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
+  busStop_properties:
+    properties:
+      entity:
+        type: "string"
+      line:
+        type: "integer"
+        format: "int32"
+      address:
+        type: "string"
+      code:
+        type: "integer"
+        format: "int32"
+      direction:
+        type: "integer"
+        format: "int32"
+      sequence:
+        type: "integer"
+        format: "int32"
+  busStop_geometry:
+    properties:
+      type:
+        type: "string"
+      coordinates:
+        type: "array"
+        items:
+          type: "number"
+          format: "double"
