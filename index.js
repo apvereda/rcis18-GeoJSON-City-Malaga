@@ -3,11 +3,23 @@
 var fs = require('fs'),
     path = require('path'),
     http = require('http');
+    
+var cors = require("cors");
 
-var app = require('connect')();
+var app = require('express')();
 var swaggerTools = require('swagger-tools');
 var jsyaml = require('js-yaml');
-var serverPort = process.env.PORT || 8080;
+var serverPort = process.env.PORT || 8080 ;
+
+app.use(cors());
+
+app.options("/*", (req, res, next) => {
+  return res.sendStatus(200);
+});
+
+app.get('/about', function(req, res) {
+  res.redirect("https://aperezvereda.github.io/rcis18-GeoJSON-City-Malaga/");
+});
 
 // swaggerRouter configuration
 var options = {
@@ -34,6 +46,9 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
   // Serve the Swagger documents and Swagger UI
   app.use(middleware.swaggerUi());
+
+
+
 
   // Start the server
   http.createServer(app).listen(serverPort, function () {
