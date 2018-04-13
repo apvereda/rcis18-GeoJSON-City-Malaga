@@ -1,13 +1,13 @@
 ---
 swagger: "2.0"
 info:
-  description: "A sample API that uses a petstore as an example to demonstrate features\
+  description: "A sample API that returns the bus stops in Malaga\
     \ in the swagger-2.0 specification"
   version: "1.0.0"
   title: "GeoJSON city Malaga API (by APV)"
   termsOfService: "http://helloreverb.com/terms/"
   contact:
-    name: "Unversidad de Malaga"
+    name: "Universidad de Malaga"
     url: "https://www.scenic.uma.es/"
     email: "apvereda@uma.es"
   license:
